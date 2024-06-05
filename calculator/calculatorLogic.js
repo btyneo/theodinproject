@@ -14,6 +14,7 @@ const divide = function(...args) {
 
 
 
+
 let firstNum; 
 let secondNum;
 let operator;
@@ -34,7 +35,25 @@ function operate(num1, num2, operateSign) {
 }
 
 
+function resetDisplay() {
+    textContent.textContent = ""
+}
+
+
+
 container = document.querySelector(".container")
+
+//creating display on top of calculator
+displayBar = document.createElement("div")
+displayBar.classList.add("displayBar")
+textContent = document.createElement("div")
+textContent.classList.add("textContent")
+displayBar.appendChild(textContent)
+container.appendChild(displayBar)
+
+
+
+
 secondContainer = document.createElement("div")
 thirdContainer = document.createElement("div")
 fourthContainer = document.createElement("div")
@@ -48,24 +67,25 @@ container.appendChild(sixthContainer)
 
 
 
+
 function createCalculator() {
-    calculatorElements = ["CLEAR", "/", "*", "7", "8", "-", "4", "5", "+", "1", "2", "3", "0", "=", "DEL"]
+    calculatorElements = ["7", "8", "9", "CLEAR", "4", "5", "6", "DEL", "1", "2", "3", "+", "0", "/", "*", "-", "π", ".", "="]
     let container;
     calculatorElements.forEach(element => {
         let currentIndex = calculatorElements.indexOf(element)
-        if (currentIndex <= 2) {
+        if (currentIndex <= 3) {
             container = secondContainer
         }
-        else if (currentIndex > 2 && currentIndex <= 5) {
+        else if (currentIndex > 3 && currentIndex <= 7) {
             container = thirdContainer
         }
-        else if (currentIndex > 5 && currentIndex <= 8) {
+        else if (currentIndex > 7 && currentIndex <= 10) {
             container = fourthContainer
         }
-        else if (currentIndex > 8 && currentIndex <= 11) {
+        else if (currentIndex > 11 && currentIndex <= 15) {
             container = fifthContainer
         }
-        else if (currentIndex > 11 && currentIndex <= 14) {
+        else if (currentIndex > 14 && currentIndex <= 19) {
             container = sixthContainer
         }
 
@@ -73,17 +93,21 @@ function createCalculator() {
 
         const button = document.createElement("button");
         button.textContent = element;
+        button.style.color = "#e8e1d8"
         button.style.fontSize = "30px";
+        button.style.backgroundColor = "#6c7173";
         container.appendChild(button)
-        if (currentIndex == 0 || currentIndex == 13) {
+        if (element == "CLEAR"  || element == "DEL") {
             button.style.backgroundColor = "orange"
         }
-        else if (currentIndex == 14) {
-            button.style.backgroundColor = "maroon"
-        }
-
-        else if (currentIndex in [1, 2, 5] || currentIndex == 5 || currentIndex == 8 ){
+        else if (element == "+" || element == "-" || element == "*" || element == "/") {
             button.style.backgroundColor = "green"
+        }
+        
+        else if (currentIndex === 18) {
+            button.style.paddingLeft = "70px";
+            button.style.paddingRight = "70px";
+            
         }
 
         button.addEventListener("click", () => {
@@ -109,6 +133,12 @@ function createCalculator() {
                 case "DEL":
                     // add the update display function here;
                     break;
+                case "π": 
+                     // add the update display function here;
+                     break;
+                case ".":
+                     // add the update display function here;
+                     break;
                 default: 
                     // add the update display function here;
                     break;
@@ -120,9 +150,4 @@ function createCalculator() {
 }
 
 createCalculator()
-// firstNumber = document.createElement("div")
-// secondNumber = document.createElement("div")
-// operator = document.createElement("div")
-// container.appendChild(firstNumber)
-// container.appendChild(secondNumber)
-// container.appendChild(operator)
+
